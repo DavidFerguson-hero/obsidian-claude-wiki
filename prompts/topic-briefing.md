@@ -15,4 +15,4 @@ Brief me on **TOPIC** using only my Obsidian vault.
    - **Gaps** — what the vault doesn't know. Notes with one independent source or old `last_evidence` count as weak.
    - **Talking points** — three, if I'm likely to use this in a meeting.
 4. Do not edit any notes. If you notice a problem, list it at the end.
-5. If I tell you I used this, add nothing yourself — remind me to log it in `Attention log.md`.
+5. If I tell you I used this, add nothing yourself — remind me to log it in `Admin/Attention log.md`.

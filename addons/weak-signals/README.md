@@ -7,7 +7,7 @@ Install it once the core vault has been running for a few weeks. With fewer than
 ## What you get
 
 - `60 Signals/SIGNALS.md` — the rules for the register (the add-on's equivalent of `AGENTS.md`).
-- `60 Signals/+Signals.md` and `Themes/+Themes.md` — Dataview index pages.
+- `60 Signals/+Signals.md` and `Themes/+Themes.md` — Dataview index pages. `+Signals` opens with an interactive **themes-and-signals map**: a maturity-vs-impact chart coloured by theme, with rising/declining arrows and a card per theme. Copy that block into `+Home.md` to see it on your home page. It needs Dataview's **Enable JavaScript queries** setting switched on.
 - One example signal and one example theme, built from the example notes in the starter vault.
 - `build_signals_json.py` — builds `signals.json`, a machine-readable feed with computed `trend` and `momentum`, for any dashboard or app you want to point at it.
 - `prompts/weekly-weak-signals.md` — the scheduled task prompt.
@@ -16,11 +16,12 @@ Install it once the core vault has been running for a few weeks. With fewer than
 
 1. Copy the `60 Signals` folder into your vault root.
 2. Copy `build_signals_json.py` into your vault root.
-3. Check it runs: in Terminal, `cd` to your vault and run `python3 build_signals_json.py`. You should see `✓ signals.json — 1 signals`.
-4. Create a weekly scheduled task from `prompts/weekly-weak-signals.md`.
-5. After two or three runs, delete the example signal and theme.
+3. In Obsidian: Settings → Dataview → switch on **Enable JavaScript queries**.
+4. Check it runs: in Terminal, `cd` to your vault and run `python3 build_signals_json.py`. You should see `✓ signals.json — 1 signals`.
+5. Create a weekly scheduled task from `prompts/weekly-weak-signals.md`.
+6. After two or three runs, delete the example signal and theme.
 
-`AGENTS.md` already reserves `60 Signals/` for this agent, so no changes are needed there.
+`Admin/AGENTS.md` already reserves `60 Signals/` for this agent, so no changes are needed there.
 
 ## The three ideas that make it work
 

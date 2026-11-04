@@ -21,15 +21,18 @@ Copy the `vault/` folder to where you want your vault to live and rename it, for
 ## 2. Open it in Obsidian
 
 1. Obsidian → **Open folder as vault** → choose your folder.
-2. Settings → **Community plugins** → turn them on → **Browse** → install and enable **Dataview**.
-3. Settings → **Core plugins** → **Templates** → set the template folder to `_templates`.
-4. Optional: install the [Obsidian Web Clipper](https://obsidian.md/clipper) browser extension and set it to save into `Clippings/`. This is the easiest way to feed the vault.
+2. Settings → **Community plugins** → turn them on → **Browse** → install and enable **Dataview**. In Dataview's own settings, switch on **Enable JavaScript queries** (needed for the signals map in the add-on).
+3. Settings → **Core plugins** → **Templates** → set the template folder to `Admin/_templates`.
+4. Optional: Settings → **Appearance** → **Themes** → **Manage** → install **AnuPpuccin** (the theme the original vault uses; **Minimal** also works well). The dashboards use the theme's own colours, so any theme is fine.
+5. Optional: install the [Obsidian Web Clipper](https://obsidian.md/clipper) browser extension and set it to save into `Clippings/`. This is the easiest way to feed the vault.
+
+Housekeeping files — `AGENTS.md`, templates, the attention log and the lint report — live in `Admin/`, so the top level stays tidy. Scripts stay in the vault root.
 
 Open `+Home`. You should see tables with the example notes in them. If you see code blocks instead, Dataview isn't enabled.
 
 ## 3. Tell it what you care about
 
-Open `AGENTS.md` and fill in **§0 About this vault**:
+Open `Admin/AGENTS.md` and fill in **§0 About this vault**:
 
 - **Owner** — your name.
 - **Focus / lens** — what every note is judged against. Be specific: "a mid-sized UK water company's strategy team" works much better than "sustainability".
@@ -40,10 +43,10 @@ That's the only part of `AGENTS.md` you need to edit. Read the rest once so you 
 ## 4. Create a Claude Project
 
 1. In the Claude desktop app, create a new **Project** for the vault.
-2. Open `PROJECT-INSTRUCTIONS.md`, copy everything below the line, and paste it into the Project's instructions.
+2. Open `Admin/PROJECT-INSTRUCTIONS.md`, copy everything below the line, and paste it into the Project's instructions.
 3. Give the Project access to your vault folder.
 
-Test it: in a chat in that Project, ask *"Read AGENTS.md and tell me, in three bullets, what you're allowed to write to."* It should name `10 Notes/` and mention asking before writing anywhere else.
+Test it: in a chat in that Project, ask *"Read Admin/AGENTS.md and tell me, in three bullets, what you're allowed to write to."* It should name `10 Notes/` and mention asking before writing anywhere else.
 
 ## 5. Check the scripts run
 
@@ -53,7 +56,7 @@ cd ~/Obsidian/"My Wiki"        # your vault folder
 python3 lint_wiki.py
 ```
 
-You should see `✓ _LINT.md written` and a list of checks. Open `_LINT` in Obsidian — the example notes will show up in a few sections. That's expected.
+You should see `✓ _LINT.md written` and a list of checks. Open `Admin/_LINT` in Obsidian — the example notes will show up in a few sections. That's expected.
 
 ## 6. Turn on nightly backups (strongly recommended)
 
@@ -104,14 +107,14 @@ Keep the git autocommit **after** all of them.
 
 ## 9. Clear out the examples
 
-After a week or two of real use, delete the files marked "Example" in `10 Notes/`, `Clippings/` and `40 Archive/Processed captures/`, and the example line in `Attention log.md`.
+After a week or two of real use, delete the files marked "Example" in `10 Notes/`, `Clippings/` and `40 Archive/Processed captures/`, and the example line in `Admin/Attention log.md`.
 
 ## 10. Use it
 
 - **Feed it.** Clip articles, forward newsletters into `00 Inbox/`, write your own concept notes using the `Concept Note` template.
 - **Ask it.** "Brief me on X" in your Project — see [`prompts/topic-briefing.md`](prompts/topic-briefing.md).
-- **Tell it what mattered.** When a note actually changes something you do, add one line to `Attention log.md`. Over time this shows you which "strong" signals were noise.
-- **Read the lint.** Weekly, look at the top of `_LINT.md`. The **Overdue assessment** list is the best use of ten minutes.
+- **Tell it what mattered.** When a note actually changes something you do, add one line to `Admin/Attention log.md`. Over time this shows you which "strong" signals were noise.
+- **Read the lint.** Weekly, look at the top of `Admin/_LINT.md`. The **Overdue assessment** list is the best use of ten minutes.
 
 When you have 50+ compiled notes, consider the [weak-signals add-on](addons/weak-signals).
 
@@ -124,7 +127,7 @@ When you have 50+ compiled notes, consider the [weak-signals add-on](addons/weak
 | `+Home` shows code instead of tables | Enable Dataview (step 2) |
 | Claude says it can't see the vault | Give the Project access to the folder again; check the folder isn't cloud-only |
 | `fatal: Unable to create '.git/index.lock': File exists` | 🖥 `rm .git/index.lock` (only when no git command is running). The nightly script clears it automatically |
-| New notes have the wrong frontmatter | Your scheduled ingest prompt has drifted. Check it starts by reading `AGENTS.md` |
+| New notes have the wrong frontmatter | Your scheduled ingest prompt has drifted. Check it starts by reading `Admin/AGENTS.md` |
 | Lint shows lots of "Dead links" | Normal at first — links to notes not written yet. Don't create empty pages to satisfy them |
 | Push failed notification | 🖥 `cd` to the vault and run `git push` by hand to see the error — usually expired GitHub credentials |
 

@@ -6,7 +6,7 @@ Paste everything below the line into the instructions of the Claude Project you 
 
 ## This Project works on my Obsidian vault
 
-**Before creating or editing anything in `10 Notes/`, read `AGENTS.md` in the vault root.** It is the only authority for note structure, frontmatter and operations. If anything here disagrees with it, AGENTS.md wins — flag the conflict.
+**Before creating or editing anything in `10 Notes/`, read `Admin/AGENTS.md`.** It is the only authority for note structure, frontmatter and operations. If anything here disagrees with it, AGENTS.md wins — flag the conflict.
 
 The vault is a compiled wiki, not a filing cabinet. I feed it (clippings, newsletters, my own notes); you keep it in shape.
 
@@ -21,7 +21,8 @@ The vault is a compiled wiki, not a filing cabinet. I feed it (clippings, newsle
 40 Archive/    — Append only.
 60 Signals/    — Weak-signals register (only if the add-on is installed).
 Clippings/     — Raw web captures. Read only.
-_templates/    — Note templates.
+Admin/         — AGENTS.md, templates, attention log, lint report. Read only.
+*.py, *.sh     — Scripts, in the vault root.
 ```
 
 ### Rules worth repeating because they are easy to get wrong
@@ -39,8 +40,8 @@ _templates/    — Note templates.
 
 | Script | Does |
 | --- | --- |
-| `lint_wiki.py` | Writes `_LINT.md`. Reports only, never edits. |
-| `apply_attention.py` | Copies `Attention log.md` entries into note frontmatter. |
+| `lint_wiki.py` | Writes `Admin/_LINT.md`. Reports only, never edits. |
+| `apply_attention.py` | Copies `Admin/Attention log.md` entries into note frontmatter. |
 | `build_signals_json.py` | (Add-on) Builds `signals.json` from `60 Signals/`. |
 
 ### Where new work goes

@@ -8,7 +8,7 @@ It REPORTS. It never edits a note. Everything it finds is a judgement call
 for the vault owner or for an agent working under AGENTS.md, and silently "fixing"
 a contradiction is exactly how a wiki drifts away from its sources.
 
-Writes `_LINT.md` in the vault root. Run:
+Writes `Admin/_LINT.md` (or `_LINT.md` in the vault root if there is no Admin folder). Run:
 
     python3 lint_wiki.py
 
@@ -31,7 +31,8 @@ from urllib.parse import urlparse
 
 ROOT   = Path(__file__).parent
 NOTES  = ROOT / "10 Notes"
-OUT    = ROOT / "_LINT.md"
+ADMIN  = ROOT / "Admin" if (ROOT / "Admin").is_dir() else ROOT
+OUT    = ADMIN / "_LINT.md"
 TODAY  = date.today()
 
 REQUIRED = ["title","type","pestle","confidence","first_seen","first_seen_basis","last_evidence",

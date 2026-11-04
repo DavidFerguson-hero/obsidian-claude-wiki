@@ -10,7 +10,7 @@ labels: problem
 **What did you expect?**
 
 **What happened instead?**
-(paste error messages, or the relevant lines from `_LINT.md` / `00 Inbox/_processing-log.md` — remove anything private)
+(paste error messages, or the relevant lines from `Admin/_LINT.md` / `00 Inbox/_processing-log.md` — remove anything private)
 
 **Your setup**
 - macOS version:

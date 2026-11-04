@@ -1,5 +1,6 @@
 .DS_Store
 __pycache__/
 vault/_LINT.md
+vault/Admin/_LINT.md
 signals.json
 vault/signals.json

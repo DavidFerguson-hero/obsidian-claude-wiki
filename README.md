@@ -11,7 +11,7 @@ It's based on Andrej Karpathy's "LLM wiki" idea, hardened over several months of
 | | What | Where |
 | --- | --- | --- |
 | 📁 | **Starter vault** — folders, templates, index pages, example notes | [`vault/`](vault) |
-| 📜 | **`AGENTS.md`** — the rulebook Claude follows. The heart of the system | [`vault/AGENTS.md`](vault/AGENTS.md) |
+| 📜 | **`AGENTS.md`** — the rulebook Claude follows. The heart of the system | [`vault/Admin/AGENTS.md`](vault/Admin/AGENTS.md) |
 | 🧪 | **Scripts** — a health check (lint), usage tracking, nightly git backup | [`vault/`](vault) |
 | ⏰ | **Scheduled task prompts** — daily ingest, weekly lint, optional news briefing | [`prompts/`](prompts) |
 | 📡 | **Weak-signals add-on** — big-picture register of 25–35 signals and themes | [`addons/weak-signals/`](addons/weak-signals) |
@@ -37,8 +37,8 @@ You need a Mac (Windows/Linux work, but the backup script is Mac-only), [Obsidia
 
 1. Click **Use this template** (or download the zip) and copy the `vault/` folder to where you want your vault.
 2. Open it in Obsidian and install the **Dataview** community plugin.
-3. Fill in **§0 of `AGENTS.md`** — your name and the focus every note is judged against.
-4. Create a Claude Project, connect the vault folder, and paste in `PROJECT-INSTRUCTIONS.md`.
+3. Fill in **§0 of `Admin/AGENTS.md`** — your name and the focus every note is judged against.
+4. Create a Claude Project, connect the vault folder, and paste in `Admin/PROJECT-INSTRUCTIONS.md`.
 5. Set up the daily ingest scheduled task from [`prompts/daily-ingest.md`](prompts/daily-ingest.md).
 
 **Full walkthrough, about 30 minutes: [SETUP.md](SETUP.md).**
@@ -51,7 +51,7 @@ It's opinionated. It assumes a few dozen captures a week, judged against one foc
 
 ## Problems and ideas
 
-Please [open an issue](../../issues). Say what you expected, what happened, and paste the relevant part of `_LINT.md` or the processing log if you have it.
+Please [open an issue](../../issues). Say what you expected, what happened, and paste the relevant part of `Admin/_LINT.md` or the processing log if you have it.
 
 ## Licence
 

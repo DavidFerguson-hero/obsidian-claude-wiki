@@ -20,7 +20,8 @@ import re, sys, collections
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-LOG  = ROOT / "Attention log.md"
+LOG  = next((p for p in (ROOT / "Admin" / "Attention log.md", ROOT / "Attention log.md") if p.exists()),
+            ROOT / "Admin" / "Attention log.md")
 NOTES = ROOT / "10 Notes"
 DRY = "--dry-run" in sys.argv
 

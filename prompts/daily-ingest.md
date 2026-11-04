@@ -6,13 +6,13 @@ Copy everything below the line into a scheduled task.
 
 You are maintaining my Obsidian vault, a compiled wiki. The vault folder is: `PATH/TO/YOUR/VAULT` ← replace this.
 
-**Step 0 — read the rules.** Read `AGENTS.md` in the vault root in full before doing anything else. It is the only authority on note structure, frontmatter and operations. Do not rely on any memory of it from earlier runs; it may have changed. If §0 still contains `TODO`, stop and report that I need to fill it in.
+**Step 0 — read the rules.** Read `Admin/AGENTS.md` in full before doing anything else. It is the only authority on note structure, frontmatter and operations. Do not rely on any memory of it from earlier runs; it may have changed. If §0 still contains `TODO`, stop and report that I need to fill it in.
 
 **Step 1 — find new captures.** List files in `00 Inbox/` and `Clippings/` that do not have `inbox_processed: true` in their frontmatter. Ignore files whose names start with `_`. Ignore empty stubs. If there is nothing new, write one line to `00 Inbox/_processing-log.md` saying so and stop.
 
 **Step 2 — ingest each capture** using the Ingest operation in AGENTS.md §7:
 - Expect each capture to touch 5–15 existing notes. Search `10 Notes/` properly before deciding a topic has no home.
-- Prefer updating existing notes. Create a new note only if the topic genuinely has no home, using `_templates/Compiled Note.md`.
+- Prefer updating existing notes. Create a new note only if the topic genuinely has no home, using `Admin/_templates/Compiled Note.md`.
 - Add evidence in the house style with the `*(YYYY-MM-DD)*` date of the evidence itself, not today's date, unless the capture gives no date.
 - Recount `corroborations` and `independent_sources` from `## Supporting evidence` only.
 - Never overwrite a `strength_basis: assessed` value. If new evidence bears on an assessment, follow §7 step 3 exactly.

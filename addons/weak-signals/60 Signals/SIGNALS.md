@@ -74,7 +74,7 @@ Then a `## Review — YYYY-MM-DD` section appended on each run that touched it.
 
 ## 5. The weekly run
 
-1. Read `AGENTS.md`, this file, and every active signal and theme.
+1. Read `Admin/AGENTS.md`, this file, and every active signal and theme.
 2. Find notes in `10 Notes/` with new dated evidence since the last run (`last_evidence`).
 3. For each existing signal: add new evidence to `## Evidence`, review the scores, record changes with reasons.
 4. Look for clusters of 3+ notes with no signal home. Propose a new signal only if it says something none of the notes says.
