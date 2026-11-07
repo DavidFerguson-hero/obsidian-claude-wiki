@@ -10,7 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        python: ["3.9", "3.12"]
+        python: ["3.10", "3.13"]
+        include:          # oldest supported version, where the runner image has it
+          - { os: macos-latest, python: "3.9" }
+          - { os: windows-latest, python: "3.9" }
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

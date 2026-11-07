@@ -38,7 +38,7 @@ It's based on Andrej Karpathy's "LLM wiki" idea, hardened over several months of
 
 ## Quick start
 
-Works on **Mac and Windows** (and Linux). You need [Obsidian](https://obsidian.md), the Claude desktop app on a paid plan with scheduled tasks, Python 3.8+ and git.
+Works on **Mac and Windows** (and Linux). You need [Obsidian](https://obsidian.md), the Claude desktop app on a paid plan with scheduled tasks, Python 3.9+ and git.
 
 1. Click **Use this template** (or download the zip) and copy the `vault/` folder to where you want your vault.
 2. Open it in Obsidian and install the **Dataview** community plugin.

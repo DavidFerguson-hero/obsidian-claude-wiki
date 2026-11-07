@@ -15,7 +15,7 @@ Every 🖥 command below assumes the terminal is already in your vault folder. W
 
 - [Obsidian](https://obsidian.md) (free)
 - The [Claude desktop app](https://claude.ai/download), on a paid plan that includes Projects and scheduled tasks
-- **Python 3.8+** and **git**:
+- **Python 3.9+** and **git**:
 
 | | Mac | Windows |
 | --- | --- | --- |

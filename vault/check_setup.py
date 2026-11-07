@@ -28,8 +28,8 @@ def check(ok, msg, fix=""):
 
 
 # ── tools ────────────────────────────────────────────────────────────────────
-check(sys.version_info >= (3, 8), f"Python {platform.python_version()}",
-      "Install Python 3.8 or newer from https://www.python.org/downloads/")
+check(sys.version_info >= (3, 9), f"Python {platform.python_version()}",
+      "Install Python 3.9 or newer from https://www.python.org/downloads/")
 git = shutil.which("git")
 check(bool(git), "git installed" if git else "git not found",
       "Mac: run `xcode-select --install`. Windows: install from https://git-scm.com/download/win")
