@@ -28,6 +28,28 @@ Agents: read [[AGENTS]] (in `Admin/`) before writing anything.
 
 <!-- Weak-signals add-on: paste the themes-and-signals map from 60 Signals/+Signals.md here. -->
 
+## Well evidenced and important to you
+
+Strong evidence *and* you rated it 4+ for importance in the weekly "Your three" review.
+
+```dataview
+TABLE WITHOUT ID
+  file.link AS "Note", pestle AS "Category", importance AS "Imp", fit AS "Fit",
+  signal_strength AS "Str", so_what AS "So what"
+FROM "10 Notes"
+WHERE type = "compiled" AND importance >= 4 AND signal_strength >= 5
+SORT importance DESC, signal_strength DESC
+```
+
+### Where you disagreed
+
+```dataview
+TABLE WITHOUT ID file.link AS "Note", fit AS "Fit", reviewed AS "Rated"
+FROM "10 Notes"
+WHERE type = "compiled" AND fit AND fit <= 2
+SORT reviewed DESC
+```
+
 ## Strongest signals right now
 
 ```dataview
@@ -66,7 +88,7 @@ SORT independent_sources DESC, signal_strength DESC
 
 ## Quick checks
 
-The full health check is [[_LINT]] (run `python3 lint_wiki.py`). These are the live views.
+The full health check is [[_LINT]] (run `python3 lint_wiki.py`, or `py lint_wiki.py` on Windows). These are the live views.
 
 ### Single-source claims — treat with caution
 

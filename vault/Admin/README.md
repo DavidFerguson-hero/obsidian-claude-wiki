@@ -11,4 +11,4 @@ This vault is a **compiled wiki**: you feed it, Claude maintains it.
 - **Claude:** ingests captures into `10 Notes/`, keeps evidence counted and dated, flags contradictions, and never rewrites your words.
 - **The rules:** [[AGENTS]]. That file is the only authority.
 
-Start at [[+Home]]. Health check: run `python3 lint_wiki.py` and read [[_LINT]].
+Start at [[+Home]]. Health check: run `python3 lint_wiki.py` (Windows: `py lint_wiki.py`) and read [[_LINT]]. Setup problems: `python3 check_setup.py`.

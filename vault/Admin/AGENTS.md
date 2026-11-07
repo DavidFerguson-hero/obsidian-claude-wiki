@@ -24,6 +24,7 @@ Pattern: Andrej Karpathy's "LLM wiki" idea (April 2026). `10 Notes/` is a compil
 | --- | --- |
 | `10 Notes/` | **Read/write.** The compiled wiki. Yours. |
 | `05 Sources/` | **Read only.** Immutable source material. Never edit, delete or reorganise. |
+| `00 Inbox/_review-log.md` | Append only. Written by the weekly review (§5a). |
 | `00 Inbox/` | **Read/write for ingest only** — set `inbox_processed`, then move the file out per §7. Never edit a capture's content. |
 | `Clippings/` | **Read only in content; movable on completion.** Raw web captures (e.g. from the Obsidian Web Clipper). Never edit the body; ingest sets `inbox_processed` and moves the file out per §7. |
 | `20 Personal/` | **Read only.** Owner's own space. |
@@ -103,6 +104,10 @@ signal_strength: 6.8        # 0–10, see §5
 strength_basis: derived     # assessed (someone judged it) | derived (computed)
 horizon: near               # now (0–1yr) | near (1–3yr) | far (3yr+) | unassessed
 so_what: "One specific sentence on what this means for the focus."
+importance: 4               # 1–5, OWNER ONLY — does it matter? (§5a). Absent = unrated
+fit: 4                      # 1–5, OWNER ONLY — does it match what they see? (§5a)
+reviewed: 2026-11-08        # date the owner last rated it
+reviewed_corroborations: 6  # corroborations at the time they rated it
 sources:                    # resolvable FILE PATHS only, never free text
   - "Clippings/Some article.md"
 stale: false
@@ -120,19 +125,19 @@ tags: ["topic/AI"]
 - **`confidence`** — reflects evidential strength, not how interesting the claim is. Driven by `independent_sources`: 1 → cap 0.4; 2–3 → 0.6; 4+ → 0.75.
 - **`stale`** — `true` when a cited source has been superseded or contradicted and the note hasn't been reconciled.
 - **`strength_basis`** — `assessed` means someone recorded a judgement on `signal_strength`, `horizon` and `so_what`. **Never overwrite an assessed value.** `derived` means it was computed and may be recomputed freely.
+- **`importance`, `fit`, `reviewed`, `reviewed_corroborations`** — set only from the owner's own answers (§5a). **Never set, change or guess these.** A note without them is simply unrated.
 - **`last_used` / `used_count`** — written only by `apply_attention.py` from `Admin/Attention log.md`. **Never set these yourself.** They record that a note changed something the owner did — the one thing the vault cannot infer.
 
 ---
 
 ## 5. Signal strength
 
-`signal_strength` (0–10) ranks how strong the evidence for a claim is.
+`signal_strength` (0–10) ranks how strong the evidence for a claim is. **Evidence only:** how much the claim matters is the owner's `importance` rating (§5a), never part of this score.
 
 ### Weigh
 
 - **Corroboration** — independent sources. Dominant factor.
 - **Directionality** — is the evidence moving consistently one way, or oscillating?
-- **Proximity** — how directly does it touch the focus (§0)?
 - **Surprise** — does it contradict the consensus view? Genuine weak signals usually do.
 
 Do **not** score by counting emphatic words ("breakthrough", "paradigm shift"). A calmly worded, well-corroborated observation outranks a breathless one.
@@ -158,6 +163,46 @@ The owner accepts by deleting the `UNREVIEWED` comment. Lint lists unreviewed as
 
 ---
 
+## 5a. Owner review — importance and fit
+
+Agents own the **evidence**. The owner owns two things only they can judge, each rated 1–5:
+
+**`importance` — Does it matter to the focus (§0)?**
+5 top-level, changes strategy or a big decision · 4 should be on someone's agenda now · 3 worth tracking · 2 background only · 1 not relevant
+
+**`fit` — Does it match what you see?**
+5 yes, seen it first-hand · 4 yes, broadly · 3 can't tell · 2 partly — direction right, detail wrong · 1 no, the claim is wrong
+
+### How ratings arrive
+
+1. **The weekly "Your three" review** (`prompts/your-three.md`). The agent picks three notes, asks in a Claude message, and the owner replies in one line: `1: 4 5 · 2: 5 2 – it's gas not nuclear · 3: skip`. Pick, in order: notes whose rating has been overtaken by evidence; the biggest `signal_strength` changes this week; unrated notes with strength 6+; `UNREVIEWED` agent assessments, strongest first. Never more than three.
+2. **In chat, any time.** "I don't buy the hydrogen note — costs aren't falling" → file it as below.
+3. **A `#no` tag** typed on any line of a note. Turn it into a disagree box in the owner's words on the next run, and leave the tagged line as it is.
+
+### What to do with an answer
+
+- Write `importance`, `fit`, `reviewed` (today) and `reviewed_corroborations` (current `corroborations`) into the frontmatter.
+- **fit 1 or 2** → add at the end of `## Why this matters`:
+  ```markdown
+  > [!disagree] Owner, 2026-11-08
+  > Their reason, in their own words (or "No reason given").
+
+  > [!reply] Agent, 2026-11-08
+  > One to three sentences: what you changed (e.g. corrected the claim, confidence 0.6 → 0.4) or why the evidence still holds.
+  ```
+- **fit 4 or 5** on a note with an `agent-assessed … UNREVIEWED` marker → change `UNREVIEWED` to `REVIEWED <date> by owner`.
+- **skip / no answer** → change nothing, and don't ask about it again for 4 weeks.
+- Append each answer and change to `00 Inbox/_review-log.md`.
+
+### Protections
+
+- **Never edit, move or delete a `[!disagree]` box.** It is the owner's prose (§3, §9).
+- **Every `[!disagree]` gets a `[!reply]`** the next time any agent touches the note. Lint lists unanswered ones.
+- A disagreement may lower `confidence` or correct the claim; it never deletes evidence.
+- Ratings go stale: when `corroborations` grows by 3+ (or 50%) since `reviewed_corroborations`, lint flags it and the weekly review brings it back.
+
+---
+
 ## 6. Dual-linking
 
 Every compiled note links in **two directions**:
@@ -168,6 +213,8 @@ Every compiled note links in **two directions**:
 This is the main defence against made-up content: every claim should be traceable to a file in `05 Sources/`, `Clippings/` or the archive. **An uncited claim in a compiled note is a defect.** If you must assert something without a source, mark it `<!-- UNCITED -->` so lint catches it.
 
 Wikilinks resolve by file name. Keep every note's file name unique across the vault — never create a second note with an existing name.
+
+**File names must work on Mac and Windows:** never use `: ? * " < > | \ /` in a note title, and keep titles under about 120 characters. Use a dash instead of a colon.
 
 ---
 
@@ -217,7 +264,7 @@ Do **not** move files prefixed `_` in `00 Inbox/`, empty stubs, or anything in `
 
 `python3 lint_wiki.py` writes `Admin/_LINT.md`. **It reports; it never edits.** Every finding is a judgement call — silently "fixing" a contradiction is how a wiki drifts away from its sources.
 
-It checks: quiet signals, notes ready for judgement, uncited claims, orphans, dead links, contradiction candidates, missing frontmatter, missing sections, legacy `source:` keys, unreviewed and overtaken assessments, overdue so-whats, and the attention gap.
+It checks: quiet signals, notes ready for judgement, uncited claims, orphans, dead links, contradiction candidates, missing frontmatter, missing sections, legacy `source:` keys, unreviewed and overtaken assessments, overdue so-whats, the attention gap, and the owner's review (§5a): unanswered disagreements, `#no` flags, ratings overtaken by evidence, and strong notes not yet rated.
 
 Two checks are deliberately crude and should be read as prompts, not findings: **contradiction candidates** (most will be complementary) and **attention gap** (high score, never used — either the scoring overrates it or the owner is missing something).
 
@@ -242,3 +289,4 @@ Facts about *this* vault that agents should not rediscover each session — migr
 7. **Never leave a processed capture in its inbox folder.** Flag and move together (§7).
 8. **Never run `git clean` in this vault.** It deletes untracked files permanently, including notes not yet committed.
 9. **Never restate this schema in another file.** Copies drift; the copy is the one agents end up reading. Point to this file instead.
+10. **Never set or change `importance` / `fit`, and never touch a `[!disagree]` box.** Only the owner's answers set them (§5a).

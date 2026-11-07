@@ -1,0 +1,55 @@
+name: Test on Mac, Windows and Linux
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        python: ["3.9", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Build a test vault with the weak-signals add-on
+        shell: bash
+        run: |
+          cp -r vault "$RUNNER_TEMP/My Wiki"
+          cp -r "addons/weak-signals/60 Signals" "$RUNNER_TEMP/My Wiki/"
+          cp addons/weak-signals/build_signals_json.py "$RUNNER_TEMP/My Wiki/"
+
+      - name: Run the scripts
+        shell: bash
+        working-directory: ${{ runner.temp }}/My Wiki
+        run: |
+          python lint_wiki.py
+          test -f "Admin/_LINT.md"
+          python apply_attention.py --dry-run
+          python build_signals_json.py
+          python -c "import json; d=json.load(open('signals.json', encoding='utf-8')); assert d['signals'], 'no signals'"
+          python check_setup.py || true   # reports missing Obsidian/git setup on a bare runner; must not crash
+
+      - name: Backup round trip
+        shell: bash
+        working-directory: ${{ runner.temp }}/My Wiki
+        run: |
+          git init -q
+          git config user.name test && git config user.email test@example.com
+          python backup_vault.py
+          git log --oneline | grep -q "Vault backup"
+          echo "change" >> "00 Inbox/_processing-log.md"
+          python backup_vault.py
+          test "$(git log --oneline | wc -l | tr -d ' ')" = "2"
+          python backup_vault.py | grep -q "no changes"
+
+      - name: No Windows-unsafe file names in the kit
+        shell: bash
+        run: |
+          ! find . -path ./.git -prune -o -name '*[:?*"<>|]*' -print | grep .

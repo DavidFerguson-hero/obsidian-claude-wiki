@@ -51,9 +51,10 @@ These rules are in `AGENTS.md` because each one fixed a real failure.
 7. **Score on evidence, not excitement.** An early version scored notes higher for words like "breakthrough". A calmly worded, well-sourced claim should beat a breathless one.
 8. **A signal is not a note.** Pointing a dashboard at every note produced 139 "signals" and was useless. About one signal per ten notes is the right ratio. The value is in what's left out.
 9. **Every theme needs a tension.** The counter-force that might prove it wrong. Without one, a theme is just a category.
-10. **Don't make the human a maintainer.** Anything that needs you to tag, promote or approve items will stop working the week you're busy. You feed it and you disagree with it. That's all.
+10. **Don't make the human a maintainer — but do ask for their judgement.** Anything that needs you to tag, promote or approve items will stop working the week you're busy. An early version said "you review and disagree" but gave you nowhere to do it. Now the system asks three questions a week, you reply in one line, and your disagreements are stored where agents can't overwrite them.
 11. **Track what you actually used.** A high score means the world is talking about something, not that it changed anything you did. The attention log is the only place that difference gets recorded.
-12. **Back up with git, outside the agent.** Agents edit many files at once, so you need to see the diff. Run the commit from your Mac, not from inside Claude: a sandboxed git can leave lock files that jam the repository. And **never `git clean`** — it once destroyed a file in the original vault.
+12. **Back up with git, outside the agent.** Agents edit many files at once, so you need to see the diff. Run the backup from your own computer's scheduler, not from inside Claude: a sandboxed git can leave lock files that jam the repository. And **never `git clean`** — it once destroyed a file in the original vault.
+13. **Separate evidence from importance.** One score used to mix "how well evidenced" with "how much it matters to us", so asking "do you agree?" was meaningless. Now `signal_strength` is evidence only (Claude's job), and `importance` and `fit` are yours.
 
 ## What it doesn't do
 

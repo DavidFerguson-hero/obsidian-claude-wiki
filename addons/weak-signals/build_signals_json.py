@@ -20,6 +20,9 @@ import json, re, sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):   # Windows consoles default to a non-UTF-8 code page
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT    = Path(__file__).parent
 SIGNALS = ROOT / "60 Signals"
 NOTES   = ROOT / "10 Notes"

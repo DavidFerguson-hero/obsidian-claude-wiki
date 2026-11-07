@@ -19,6 +19,9 @@ fields and nothing else — it never edits prose, and it never changes a score.
 import re, sys, collections
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):   # Windows consoles default to a non-UTF-8 code page
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT = Path(__file__).parent
 LOG  = next((p for p in (ROOT / "Admin" / "Attention log.md", ROOT / "Attention log.md") if p.exists()),
             ROOT / "Admin" / "Attention log.md")

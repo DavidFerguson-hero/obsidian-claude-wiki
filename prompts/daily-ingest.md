@@ -12,6 +12,7 @@ You are maintaining my Obsidian vault, a compiled wiki. The vault folder is: `PA
 
 **Step 2 — ingest each capture** using the Ingest operation in AGENTS.md §7:
 - Expect each capture to touch 5–15 existing notes. Search `10 Notes/` properly before deciding a topic has no home.
+- New note titles must not contain `: ? * " < > |` (they break on Windows). Use a dash instead of a colon.
 - Prefer updating existing notes. Create a new note only if the topic genuinely has no home, using `Admin/_templates/Compiled Note.md`.
 - Add evidence in the house style with the `*(YYYY-MM-DD)*` date of the evidence itself, not today's date, unless the capture gives no date.
 - Recount `corroborations` and `independent_sources` from `## Supporting evidence` only.

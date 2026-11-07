@@ -12,28 +12,33 @@ It's based on Andrej Karpathy's "LLM wiki" idea, hardened over several months of
 | --- | --- | --- |
 | 📁 | **Starter vault** — folders, templates, index pages, example notes | [`vault/`](vault) |
 | 📜 | **`AGENTS.md`** — the rulebook Claude follows. The heart of the system | [`vault/Admin/AGENTS.md`](vault/Admin/AGENTS.md) |
-| 🧪 | **Scripts** — a health check (lint), usage tracking, nightly git backup | [`vault/`](vault) |
-| ⏰ | **Scheduled task prompts** — daily ingest, weekly lint, optional news briefing | [`prompts/`](prompts) |
+| 🧪 | **Scripts** — a setup checker, a health check (lint), usage tracking, nightly git backup — all plain Python, same on Mac and Windows | [`vault/`](vault) |
+| ⏰ | **Scheduled task prompts** — daily ingest, weekly "Your three" review, weekly lint, optional news briefing | [`prompts/`](prompts) |
 | 📡 | **Weak-signals add-on** — big-picture register of 25–35 signals and themes | [`addons/weak-signals/`](addons/weak-signals) |
 | 📖 | **How it works** — the design, and the lessons learned the hard way | [`docs/how-it-works.md`](docs/how-it-works.md) |
 
 ## How it works in one picture
 
 ```
-   YOU                          CLAUDE (scheduled)                     YOU
-   ───                          ──────────────────                     ───
+   YOU                          CLAUDE (scheduled)                        YOU
+   ───                          ──────────────────                        ───
  clippings ─┐                 ┌─► daily ingest ──► 10 Notes/ ──┐
  newsletters├─► 00 Inbox/ ────┤   (updates 5–15 existing notes,│
- own notes ─┘                 │    counts sources, archives)   ├─► +Home, dashboards
+ own notes ─┘                 │    counts sources, archives)   ├─► +Home, dashboards,
                               │                                │   briefings on demand
-                              └─► weekly lint ───► _LINT.md ───┘   (you review & disagree)
+                              ├─► weekly lint ───► _LINT.md ───┘
+                              │
+                              └─► "Your three" ──► 3 questions ──► you reply in one line:
+                                  (weekly)         on your phone    does it matter? does it fit?
                                                    │
                      add-on:  weekly signals ──► 60 Signals/ ──► signals.json
 ```
 
+**Who does what.** Claude owns the *evidence*: counting, dating and linking sources. You own the two things only you can judge — **does it matter?** and **does it match what you see?** — answered once a week in one line. When you disagree, your words go into the note in a box agents can never edit, and the agent has to reply.
+
 ## Quick start
 
-You need a Mac (Windows/Linux work, but the backup script is Mac-only), [Obsidian](https://obsidian.md), the Claude desktop app on a paid plan with scheduled tasks, Python 3 and git.
+Works on **Mac and Windows** (and Linux). You need [Obsidian](https://obsidian.md), the Claude desktop app on a paid plan with scheduled tasks, Python 3.8+ and git.
 
 1. Click **Use this template** (or download the zip) and copy the `vault/` folder to where you want your vault.
 2. Open it in Obsidian and install the **Dataview** community plugin.

@@ -35,6 +35,7 @@ Admin/         — AGENTS.md, templates, attention log, lint report. Read only.
 6. Never set `last_used` / `used_count` — only `apply_attention.py` does.
 7. Never run `git clean`.
 8. If a task needs writing outside `10 Notes/`, stop and ask.
+9. Never set `importance` or `fit` — only my answers do. If I disagree with a note in chat, file it as a `> [!disagree]` box in my words and reply underneath (AGENTS.md §5a). Never edit or remove a `[!disagree]` box.
 
 ### Scripts
 

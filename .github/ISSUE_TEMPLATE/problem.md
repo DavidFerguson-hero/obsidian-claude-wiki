@@ -13,6 +13,7 @@ labels: problem
 (paste error messages, or the relevant lines from `Admin/_LINT.md` / `00 Inbox/_processing-log.md` — remove anything private)
 
 **Your setup**
-- macOS version:
-- Python version (`python3 --version`):
+- Mac or Windows, and which version:
+- Python version (`python3 --version`, or `py --version` on Windows):
+- Output of `python3 check_setup.py` (remove anything private):
 - Weak-signals add-on installed? yes / no

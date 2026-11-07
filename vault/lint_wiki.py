@@ -29,6 +29,9 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
+if hasattr(sys.stdout, "reconfigure"):   # Windows consoles default to a non-UTF-8 code page
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT   = Path(__file__).parent
 NOTES  = ROOT / "10 Notes"
 ADMIN  = ROOT / "Admin" if (ROOT / "Admin").is_dir() else ROOT
@@ -300,6 +303,49 @@ def main():
     overtaken.sort(key=lambda x: -x[0])
     L.append(("Assessments overtaken by evidence", "The assessment was written against a smaller evidence base than the note now has. **This is the check that keeps assessments honest as notes grow** — reasoning formed on 11 sources reads exactly the same when the note reaches 30, and nothing else here would notice. A new *independent domain* is the trigger worth acting on: §5 makes independence the dominant factor, so one new domain can turn a 'single publication' caveat into a corroborated claim. Re-read the assessment, revise if the reasoning has moved, and update the `assessed-at` stamp. Growth in raw corroborations alone is flagged only past 1.5x, since ordinary ingest adds entries constantly.",
               [s for _, s in overtaken[:15]]))
+
+    # 7c-iv ── owner review (AGENTS.md "Owner review")
+    #
+    # The owner rates notes 1–5 on `importance` (does it matter to us?) and `fit`
+    # (does it match what they see?), and can disagree in a protected
+    # `> [!disagree]` callout. These checks make sure a disagreement is never
+    # silently ignored, and a rating never silently goes stale.
+    open_dis = []
+    for n in comp:
+        parts = re.split(r"^>\s*\[!disagree\]", n["body"], flags=re.M)
+        for seg in parts[1:]:
+            if not re.search(r"^>\s*\[!reply\]", seg.split("\n## ")[0], flags=re.M):
+                open_dis.append(f"[[{n['name']}]]")
+                break
+    L.append(("Your disagreements awaiting a reply", "You disagreed in a `> [!disagree]` box and no agent has replied underneath yet. The next ingest or review run must answer each one: adjust the note, or explain why the evidence still holds. **The box itself is never edited or removed.**",
+              open_dis[:20]))
+
+    no_tags = []
+    for n in notes:
+        for line in n["body"].split("\n"):
+            if re.search(r"(^|\s)#no(\s|$)", line) and not line.lstrip().startswith(">"):
+                no_tags.append(f"[[{n['name']}]] — {line.strip()[:100]}")
+                break
+    L.append(("`#no` flags to file", "Lines where you typed `#no`. The next run turns each into a `> [!disagree]` box in your words, then replies to it.",
+              no_tags[:20]))
+
+    re_rate = []
+    for n in comp:
+        rc = n["fm"].get("reviewed_corroborations")
+        if rc is None or n["fm"].get("importance") in (None, ""):
+            continue
+        was, now = num(rc), num(n["fm"].get("corroborations"))
+        if now >= was + 3 or (was and now >= was * 1.5):
+            re_rate.append((now - was, f"[[{n['name']}]] — rated at {was:g} sources, now {now:g}"))
+    re_rate.sort(key=lambda x: -x[0])
+    L.append(("Your ratings overtaken by evidence", "You rated these when they had less evidence. The weekly review brings them back to check you still agree.",
+              [s for _, s in re_rate[:15]]))
+
+    unrated = [n for n in comp
+               if num(n["fm"].get("signal_strength")) >= 6 and not n["fm"].get("importance")]
+    unrated.sort(key=lambda n: -num(n["fm"].get("signal_strength")))
+    L.append(("Strong evidence, not yet rated by you", f"{len(unrated)} notes have strength 6+ but no `importance` rating. The weekly review works through these, strongest first. Nothing for you to do here directly.",
+              [f"**{num(n['fm'].get('signal_strength'))}** · [[{n['name']}]]" for n in unrated[:15]]))
 
     # 7d ── legacy source key
     legacy = [f"[[{n['name']}]]" for n in comp

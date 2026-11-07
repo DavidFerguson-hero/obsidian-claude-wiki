@@ -17,7 +17,7 @@ Install it once the core vault has been running for a few weeks. With fewer than
 1. Copy the `60 Signals` folder into your vault root.
 2. Copy `build_signals_json.py` into your vault root.
 3. In Obsidian: Settings → Dataview → switch on **Enable JavaScript queries**.
-4. Check it runs: in Terminal, `cd` to your vault and run `python3 build_signals_json.py`. You should see `✓ signals.json — 1 signals`.
+4. Check it runs: in Terminal, `cd` to your vault and run `python3 build_signals_json.py` (Windows: `py build_signals_json.py`). You should see `✓ signals.json — 1 signals`.
 5. Create a weekly scheduled task from `prompts/weekly-weak-signals.md`.
 6. After two or three runs, delete the example signal and theme.
 

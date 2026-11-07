@@ -1,12 +1,26 @@
 # Setup — about 30 minutes
 
-Written for a Mac. Steps marked 🖥 use Terminal (Applications → Utilities → Terminal). Copy the commands as they are, swapping in your own folder path.
+Works on **Mac** and **Windows** (and Linux). Where the two differ, both are shown. Steps marked 🖥 need a terminal.
+
+## Opening a terminal in your vault folder
+
+| | Mac | Windows |
+| --- | --- | --- |
+| Open a terminal **in the vault folder** | In Finder, right-click the vault folder → **New Terminal at Folder**. (If you don't see it: System Settings → Keyboard → Keyboard Shortcuts → Services → Files and Folders → tick **New Terminal at Folder**.) | In File Explorer, open the vault folder, right-click empty space → **Open in Terminal**. |
+| Run Python | `python3` | `py` |
+
+Every 🖥 command below assumes the terminal is already in your vault folder. Where you see `python3`, type `py` on Windows.
 
 ## What you need
 
 - [Obsidian](https://obsidian.md) (free)
 - The [Claude desktop app](https://claude.ai/download), on a paid plan that includes Projects and scheduled tasks
-- Python 3 and git. 🖥 Check with `python3 --version` and `git --version`. If either is missing, macOS will offer to install the Command Line Tools — say yes.
+- **Python 3.8+** and **git**:
+
+| | Mac | Windows |
+| --- | --- | --- |
+| Check | 🖥 `python3 --version` and `git --version` | 🖥 `py --version` and `git --version` |
+| Install if missing | Running either command offers to install Apple's Command Line Tools — say yes. | Python: [python.org/downloads](https://www.python.org/downloads/) — tick **Add python.exe to PATH**. Git: [git-scm.com/download/win](https://git-scm.com/download/win), accept the defaults. Then close and reopen the terminal. |
 
 ---
 
@@ -14,9 +28,14 @@ Written for a Mac. Steps marked 🖥 use Terminal (Applications → Utilities �
 
 Click **Use this template → Create a new repository** on GitHub, or **Code → Download ZIP**.
 
-Copy the `vault/` folder to where you want your vault to live and rename it, for example `~/Obsidian/My Wiki`.
+Copy the `vault/` folder to where you want your vault and rename it. Keep the path short and **outside cloud-sync folders**:
 
-> **Keep it out of iCloud Drive, Dropbox and OneDrive** if you can. Sync services and git can step on each other, and cloud-only files may be invisible to Claude. Back up with git instead (step 6).
+| | Good place | Avoid |
+| --- | --- | --- |
+| Mac | `~/Obsidian/My Wiki` | iCloud Drive, Dropbox |
+| Windows | `C:\Vaults\My Wiki` | **OneDrive** — Windows often puts Documents and Desktop inside OneDrive without telling you. Also avoid long paths: Windows struggles past 260 characters. |
+
+Sync services and git step on each other, and cloud-only files can be invisible to Claude. Back up with git instead (step 6).
 
 ## 2. Open it in Obsidian
 
@@ -51,8 +70,7 @@ Test it: in a chat in that Project, ask *"Read Admin/AGENTS.md and tell me, in t
 ## 5. Check the scripts run
 
 🖥
-```bash
-cd ~/Obsidian/"My Wiki"        # your vault folder
+```
 python3 lint_wiki.py
 ```
 
@@ -62,23 +80,36 @@ You should see `✓ _LINT.md written` and a list of checks. Open `Admin/_LINT` i
 
 Agents edit many notes at once. Git lets you see exactly what changed, and undo it.
 
-🖥
-```bash
-cd ~/Obsidian/"My Wiki"
+🖥 First time only — tell git who you are:
+```
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+Then:
+```
 git init
 git add -A
 git commit -m "Starting point"
-chmod +x install_autocommit.sh commit_vault.sh
-./install_autocommit.sh
+python3 backup_vault.py --install
 ```
 
-This commits the vault every night at 21:00. For a different time: `HOUR=22 MINUTE=30 ./install_autocommit.sh`.
+That backs the vault up every night at 21:00 — using launchd on a Mac and Task Scheduler on Windows. For a different time: `python3 backup_vault.py --install --time 22:30`. To check it: `python3 backup_vault.py --status`.
 
-Optional, for an off-machine copy: create a **private** GitHub repository and run `git remote add origin <its URL>` then `git push -u origin HEAD`. The nightly job will push from then on.
+Optional, for an off-machine copy: create a **private** GitHub repository, then run `git remote add origin <its URL>` and `git push -u origin HEAD`. The nightly backup pushes from then on. If a push ever fails, a note called **⚠️ Backup problem** appears in `Admin/` explaining what to do.
 
 > ⚠️ **Never run `git clean` in your vault.** It permanently deletes any file git isn't tracking yet — including notes written since the last commit.
 
-## 7. Try your first ingest by hand
+## 7. Check everything
+
+🖥
+```
+python3 check_setup.py
+```
+
+It checks Python, git, Dataview, the folders, your §0 settings, the backup schedule, and Windows-unsafe file names, and tells you in plain words what to fix. Run it again any time something seems off.
+
+## 8. Try your first ingest by hand
 
 In a chat in your Project, ask:
 
@@ -93,28 +124,31 @@ Then check:
 
 🖥 `git diff` shows every change.
 
-## 8. Schedule it
+## 9. Schedule it
 
 Create these as scheduled tasks in the Claude app, from the prompts in [`prompts/`](prompts). Replace `PATH/TO/YOUR/VAULT` in each one.
 
 | Task | When |
 | --- | --- |
 | Daily ingest | Every day, early morning |
+| Your three | Weekly, e.g. Sunday morning — turn on push notifications |
 | Weekly lint | Weekly |
 | Daily briefing (optional) | Weekdays, before the ingest |
 
-Keep the git autocommit **after** all of them.
+Keep the nightly backup **after** all of them, so each day's agent changes land in one reviewable commit.
 
-## 9. Clear out the examples
+## 10. Clear out the examples
 
 After a week or two of real use, delete the files marked "Example" in `10 Notes/`, `Clippings/` and `40 Archive/Processed captures/`, and the example line in `Admin/Attention log.md`.
 
-## 10. Use it
+## 11. Use it
 
 - **Feed it.** Clip articles, forward newsletters into `00 Inbox/`, write your own concept notes using the `Concept Note` template.
+- **Answer "Your three".** Once a week, two numbers per note, one line. Disagreeing is the most useful thing you can do — it's how the vault learns what you know.
 - **Ask it.** "Brief me on X" in your Project — see [`prompts/topic-briefing.md`](prompts/topic-briefing.md).
-- **Tell it what mattered.** When a note actually changes something you do, add one line to `Admin/Attention log.md`. Over time this shows you which "strong" signals were noise.
-- **Read the lint.** Weekly, look at the top of `Admin/_LINT.md`. The **Overdue assessment** list is the best use of ten minutes.
+- **Disagree any time.** Tell Claude in chat ("I don't buy the hydrogen note — costs aren't falling"), or type `#no` and a reason on any line of a note.
+- **Tell it what mattered.** When a note actually changes something you do, add one line to `Admin/Attention log.md`.
+- **Read the lint.** Weekly, look at the top of `Admin/_LINT.md`.
 
 When you have 50+ compiled notes, consider the [weak-signals add-on](addons/weak-signals).
 
@@ -124,11 +158,14 @@ When you have 50+ compiled notes, consider the [weak-signals add-on](addons/weak
 
 | Problem | Fix |
 | --- | --- |
+| Anything at all | 🖥 `python3 check_setup.py` first — it catches most setup problems |
 | `+Home` shows code instead of tables | Enable Dataview (step 2) |
-| Claude says it can't see the vault | Give the Project access to the folder again; check the folder isn't cloud-only |
-| `fatal: Unable to create '.git/index.lock': File exists` | 🖥 `rm .git/index.lock` (only when no git command is running). The nightly script clears it automatically |
+| `python3` / `py` not recognised | Windows: reinstall Python with **Add python.exe to PATH** ticked, then reopen the terminal. Mac: run `xcode-select --install` |
+| Claude says it can't see the vault | Give the Project access to the folder again; check the folder isn't cloud-only (OneDrive / iCloud) |
+| `fatal: Unable to create '.git/index.lock': File exists` | Wait a minute and retry; the nightly backup clears stale locks automatically. If it persists, delete `.git/index.lock` while no git command is running |
 | New notes have the wrong frontmatter | Your scheduled ingest prompt has drifted. Check it starts by reading `Admin/AGENTS.md` |
 | Lint shows lots of "Dead links" | Normal at first — links to notes not written yet. Don't create empty pages to satisfy them |
-| Push failed notification | 🖥 `cd` to the vault and run `git push` by hand to see the error — usually expired GitHub credentials |
+| A **⚠️ Backup problem** note appeared | Follow what it says — usually 🖥 `git push` to see the error, then re-sign in to GitHub |
+| Windows: a note won't open or sync | Its name probably contains `: ? * " < > |`. `check_setup.py` lists them — rename them |
 
 Still stuck? [Open an issue](../../issues).
