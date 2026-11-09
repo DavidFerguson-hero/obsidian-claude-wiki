@@ -22,7 +22,7 @@ The vault is a compiled wiki, not a filing cabinet. I feed it (clippings, newsle
 60 Signals/    — Weak-signals register (only if the add-on is installed).
 Clippings/     — Raw web captures. Read only.
 Admin/         — AGENTS.md, templates, attention log, lint report. Read only.
-*.py, *.sh     — Scripts, in the vault root.
+*.py           — Scripts, in the vault root.
 ```
 
 ### Rules worth repeating because they are easy to get wrong

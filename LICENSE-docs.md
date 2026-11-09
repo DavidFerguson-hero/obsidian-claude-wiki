@@ -8,4 +8,4 @@ You may copy, adapt and share it, including commercially, as long as you give cr
 
 Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
 
-Code files (`*.py`, `*.sh`) are under the MIT licence in [`LICENSE`](LICENSE).
+Code files (`*.py`) are under the MIT licence in [`LICENSE`](LICENSE).
