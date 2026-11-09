@@ -13,7 +13,7 @@ It's based on Andrej Karpathy's "LLM wiki" idea, hardened over several months of
 | 📁 | **Starter vault** — folders, templates, index pages, example notes | [`vault/`](vault) |
 | 📜 | **`AGENTS.md`** — the rulebook Claude follows. The heart of the system | [`vault/Admin/AGENTS.md`](vault/Admin/AGENTS.md) |
 | 🧪 | **Scripts** — a setup checker, a health check (lint), usage tracking, nightly git backup — all plain Python, same on Mac and Windows | [`vault/`](vault) |
-| ⏰ | **Scheduled task prompts** — daily ingest, weekly "Your three" review, weekly lint, optional news briefing | [`prompts/`](prompts) |
+| ⏰ | **Scheduled task prompts** — daily ingest, weekly "Your three" review, weekly lint; optional news briefing, newsletter sync and daily inspiration | [`prompts/`](prompts) |
 | 📡 | **Weak-signals add-on** — big-picture register of 25–35 signals and themes | [`addons/weak-signals/`](addons/weak-signals) |
 | 📖 | **How it works** — the design, and the lessons learned the hard way | [`docs/how-it-works.md`](docs/how-it-works.md) |
 

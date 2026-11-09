@@ -37,6 +37,9 @@ jobs:
           python apply_attention.py --dry-run
           python build_signals_json.py
           python -c "import json; d=json.load(open('signals.json', encoding='utf-8')); assert d['signals'], 'no signals'"
+          python random_note.py | grep -q "10 Notes/"
+          python random_note.py --days 0 | grep -v "/+" | grep -q "10 Notes/"
+          grep -q "· \[\[" "00 Inbox/_inspiration-log.md"
           python check_setup.py || true   # reports missing Obsidian/git setup on a bare runner; must not crash
 
       - name: Backup round trip

@@ -134,6 +134,8 @@ Create these as scheduled tasks in the Claude app, from the prompts in [`prompts
 | Your three | Weekly, e.g. Sunday morning — turn on push notifications |
 | Weekly lint | Weekly |
 | Daily briefing (optional) | Weekdays, before the ingest |
+| Newsletter sync (optional) | Daily, an hour before the ingest — needs the Gmail or Outlook connector |
+| Daily inspiration (optional) | Daily, when you'll read it — turn on push notifications |
 
 Keep the nightly backup **after** all of them, so each day's agent changes land in one reviewable commit.
 

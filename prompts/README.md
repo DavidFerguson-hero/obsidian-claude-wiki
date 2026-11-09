@@ -10,6 +10,8 @@ These are the prompts behind the automations. Scheduled tasks belong to your own
 | [`your-three.md`](your-three.md) | Weekly, e.g. Sunday morning | `10 Notes/` (your ratings) | **Core** — where your judgement goes in |
 | [`weekly-lint.md`](weekly-lint.md) | Weekly, e.g. Sunday | `Admin/_LINT.md` only | Recommended |
 | [`daily-briefing.md`](daily-briefing.md) | Weekdays, before ingest | `00 Inbox/` | Optional — feeds the inbox from the web |
+| [`newsletter-sync.md`](newsletter-sync.md) | Daily, an hour before ingest | `00 Inbox/` | Optional — copies your email newsletters in (needs Gmail or Outlook connector) |
+| [`daily-inspiration.md`](daily-inspiration.md) | Daily, when you'll read it | nothing (reads only) | Optional — one random note back to you each day, with news and ideas |
 | [`topic-briefing.md`](topic-briefing.md) | Not scheduled — use on demand | nothing | Optional |
 | Weak signals | Weekly | `60 Signals/` | Add-on — see [`addons/weak-signals`](../addons/weak-signals) |
 

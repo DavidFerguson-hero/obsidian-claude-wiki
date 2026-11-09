@@ -25,6 +25,7 @@ Pattern: Andrej Karpathy's "LLM wiki" idea (April 2026). `10 Notes/` is a compil
 | `10 Notes/` | **Read/write.** The compiled wiki. Yours. |
 | `05 Sources/` | **Read only.** Immutable source material. Never edit, delete or reorganise. |
 | `00 Inbox/_review-log.md` | Append only. Written by the weekly review (§5a). |
+| `00 Inbox/_inspiration-log.md` | Written only by `random_note.py`. Never edit by hand. |
 | `00 Inbox/` | **Read/write for ingest only** — set `inbox_processed`, then move the file out per §7. Never edit a capture's content. |
 | `Clippings/` | **Read only in content; movable on completion.** Raw web captures (e.g. from the Obsidian Web Clipper). Never edit the body; ingest sets `inbox_processed` and moves the file out per §7. |
 | `20 Personal/` | **Read only.** Owner's own space. |
