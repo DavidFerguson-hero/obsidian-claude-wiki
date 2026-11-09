@@ -131,7 +131,7 @@ Create these as scheduled tasks in the Claude app, from the prompts in [`prompts
 | Task | When |
 | --- | --- |
 | Daily ingest | Every day, early morning |
-| Your three | Weekly, e.g. Sunday morning — turn on push notifications |
+| Your three | Weekly, e.g. Sunday morning — emails you when it's waiting (needs the Gmail connector) |
 | Weekly lint | Weekly |
 | Daily briefing (optional) | Weekdays, before the ingest |
 | Newsletter sync (optional) | Daily, an hour before the ingest — needs the Gmail or Outlook connector |

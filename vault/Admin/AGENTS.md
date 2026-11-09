@@ -191,13 +191,14 @@ Agents own the **evidence**. The owner owns two things only they can judge, each
   > [!reply] Agent, 2026-11-08
   > One to three sentences: what you changed (e.g. corrected the claim, confidence 0.6 → 0.4) or why the evidence still holds.
   ```
+- **fit 3–5 with a comment** → keep the owner's words in a `> [!comment] Owner, <date>` box at the end of `## Why this matters`. Same protection as a disagree box. Reply underneath only if it raises a point the note misses.
 - **fit 4 or 5** on a note with an `agent-assessed … UNREVIEWED` marker → change `UNREVIEWED` to `REVIEWED <date> by owner`.
 - **skip / no answer** → change nothing, and don't ask about it again for 4 weeks.
 - Append each answer and change to `00 Inbox/_review-log.md`.
 
 ### Protections
 
-- **Never edit, move or delete a `[!disagree]` box.** It is the owner's prose (§3, §9).
+- **Never edit, move or delete a `[!disagree]` or `[!comment]` box.** It is the owner's prose (§3, §9).
 - **Every `[!disagree]` gets a `[!reply]`** the next time any agent touches the note. Lint lists unanswered ones.
 - A disagreement may lower `confidence` or correct the claim; it never deletes evidence.
 - Ratings go stale: when `corroborations` grows by 3+ (or 50%) since `reviewed_corroborations`, lint flags it and the weekly review brings it back.
@@ -290,4 +291,4 @@ Facts about *this* vault that agents should not rediscover each session — migr
 7. **Never leave a processed capture in its inbox folder.** Flag and move together (§7).
 8. **Never run `git clean` in this vault.** It deletes untracked files permanently, including notes not yet committed.
 9. **Never restate this schema in another file.** Copies drift; the copy is the one agents end up reading. Point to this file instead.
-10. **Never set or change `importance` / `fit`, and never touch a `[!disagree]` box.** Only the owner's answers set them (§5a).
+10. **Never set or change `importance` / `fit`, and never touch a `[!disagree]` or `[!comment]` box.** Only the owner's answers set them (§5a).

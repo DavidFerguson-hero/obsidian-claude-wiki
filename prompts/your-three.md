@@ -7,7 +7,9 @@ The one place you give the system your judgement. Once a week Claude picks three
 
 The agents own the evidence. You own these two, because only you can judge them. Full rules: `Admin/AGENTS.md` §5a.
 
-**Schedule:** weekly, e.g. Sunday morning, after the daily ingest and weak-signals run. Turn on push notifications for the task so the question reaches your phone.
+**Schedule:** weekly, e.g. Sunday morning, after the daily ingest and weak-signals run.
+
+**How you'll know it's waiting:** the task emails you a heads-up with the three questions (needs the Gmail connector). Push notifications for the task help too, but Claude only sends them when it judges a run noteworthy, so don't rely on them alone. You reply in Claude, not by email: open the scheduled task and its latest run.
 
 > Tappable buttons don't work in scheduled tasks, so this uses a one-line text reply. It works fine on a phone.
 
@@ -39,9 +41,11 @@ Skip anything I skipped in the last 4 weeks (see `00 Inbox/_review-log.md`). Fir
 >
 > Importance: 5 top-level · 4 on someone's agenda now · 3 worth tracking · 2 background · 1 not relevant. Fit: 5 seen it first-hand · 4 broadly yes · 3 can't tell · 2 partly wrong · 1 wrong.
 
+**Step 2b — email heads-up.** Also send me an email with the Gmail connector, to the connected account's own address (send it, don't leave a draft). Subject: "Your three are ready". Body: the same three items and the reply example, then: "Reply in Claude: open the 'Your three' scheduled task and its latest run. Email replies aren't read." If the Gmail connector isn't available or sending fails, carry on and mention it in one line at the end.
+
 Then stop and wait for my reply. Accept loose formats (`1 45, 2 52 gas not nuclear, 3 skip`). If something is ambiguous, ask once, briefly.
 
-**Step 3 — apply** exactly as §5a says: write `importance`, `fit`, `reviewed`, `reviewed_corroborations`; fit 1–2 → a `[!disagree]` box in my words plus your `[!reply]` box; fit 4–5 → `UNREVIEWED` becomes `REVIEWED <date> by owner`; skip → no change. Append to `00 Inbox/_review-log.md`.
+**Step 3 — apply** exactly as §5a says: write `importance`, `fit`, `reviewed`, `reviewed_corroborations`; fit 1–2 → a `[!disagree]` box in my words plus your `[!reply]` box; fit 3–5 with a comment → a `[!comment]` box in my words; fit 4–5 → `UNREVIEWED` becomes `REVIEWED <date> by owner`; skip → no change. Append to `00 Inbox/_review-log.md`.
 
 **Step 4 — reply** in at most 4 bullets: what changed in each note.
 
