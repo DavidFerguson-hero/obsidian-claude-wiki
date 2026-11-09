@@ -5,15 +5,15 @@ Each morning, one note from your vault comes back to you: a short reminder of wh
 - **Reads only.** It never changes a note. The only file it writes is `00 Inbox/_inspiration-log.md`, so the same note doesn't come back within 60 days.
 - **The pick is genuinely random.** `random_note.py` chooses the note, not Claude: asked to "pick an interesting note", an agent gravitates to the same handful.
 
-**Schedule:** daily, at a time you'll read it (e.g. 08:30). Turn on push notifications for the task.
+**Schedule:** daily, an hour or so before you'd read it (e.g. 07:30 for an 08:30 coffee).
 
 **Choose how it reaches you** — edit the `DELIVERY` line in the prompt:
 
-| Option | Works on | Needs |
-| --- | --- | --- |
-| `notification` (default) | Mac and Windows | Nothing — the message is the task's own reply, and the push notification brings you to it |
-| `email` | Mac and Windows | The Gmail connector in Claude |
-| `imessage` | Mac only | The iMessage connector, with your Mac awake |
+| Option | Works on | Needs | What you get |
+| --- | --- | --- | --- |
+| `email` (default) | Mac and Windows | The Gmail connector in Claude | The full message in your inbox, every day |
+| `imessage` | Mac only | The iMessage connector, with your Mac awake | The full message in Messages |
+| `claude` | Mac and Windows | Nothing | The message stays in the task's run history in Claude. With push notifications on for the task you *may* get an alert, but Claude decides when a run is worth notifying about, so don't rely on it daily |
 
 Copy everything below the line into a scheduled task.
 
@@ -21,7 +21,7 @@ Copy everything below the line into a scheduled task.
 
 Daily inspiration from my Obsidian vault at `PATH/TO/YOUR/VAULT` ← replace this.
 
-DELIVERY: notification ← or `email to you@example.com`, or `imessage to +44…`
+DELIVERY: email to you@example.com ← your address. Or `imessage to +44…`, or `claude`
 
 This task only reads notes. Never edit, move or delete anything in the vault. The only file that changes is `00 Inbox/_inspiration-log.md`, and the script writes it, not you.
 
@@ -40,4 +40,4 @@ This task only reads notes. Never edit, move or delete anything in the vault. Th
    > 1. …
    > 2. …
 
-   For `notification`, make this your final reply. For `email`, send it to me with the subject "Daily inspiration: *note name*". For `imessage`, send it as one message; if the iMessage connector or my Mac can't be reached, put it in your final reply instead and say so in one line.
+   For `email`, send it to me with the Gmail connector, subject "Daily inspiration: *note name*" — send it, don't leave it as a draft. For `imessage`, send it as one message. For `claude`, just make it your final reply. **Whatever the option, also make it your final reply**, so it's in the run history; if sending fails (connector missing, Mac asleep), say so in one line at the top.

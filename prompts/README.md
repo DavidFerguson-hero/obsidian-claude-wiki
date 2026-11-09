@@ -11,7 +11,7 @@ These are the prompts behind the automations. Scheduled tasks belong to your own
 | [`weekly-lint.md`](weekly-lint.md) | Weekly, e.g. Sunday | `Admin/_LINT.md` only | Recommended |
 | [`daily-briefing.md`](daily-briefing.md) | Weekdays, before ingest | `00 Inbox/` | Optional — feeds the inbox from the web |
 | [`newsletter-sync.md`](newsletter-sync.md) | Daily, an hour before ingest | `00 Inbox/` | Optional — copies your email newsletters in (needs Gmail or Outlook connector) |
-| [`daily-inspiration.md`](daily-inspiration.md) | Daily, when you'll read it | nothing (reads only) | Optional — one random note back to you each day, with news and ideas |
+| [`daily-inspiration.md`](daily-inspiration.md) | Daily, when you'll read it | nothing (reads only) | Optional — one random note emailed to you each day, with news and ideas (needs Gmail connector) |
 | [`topic-briefing.md`](topic-briefing.md) | Not scheduled — use on demand | nothing | Optional |
 | Weak signals | Weekly | `60 Signals/` | Add-on — see [`addons/weak-signals`](../addons/weak-signals) |
 
