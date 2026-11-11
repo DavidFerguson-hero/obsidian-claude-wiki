@@ -66,7 +66,9 @@ jobs:
             d="v_$RANDOM"; mkdir "$d"
             echo "{\"owner\":\"T\",\"focus\":\"f\",\"extra_category\":$cat,\"features\":{\"weak_signals\":true}}" > a.json
             python obsidian-wiki/scripts/install_vault.py --target "$d" --answers a.json
-            (cd "$d" && python lint_wiki.py && python build_signals_json.py && python random_note.py --no-log && python check_setup.py --agent | grep -q "✓ AGENTS.md §0 filled in")
+            (cd "$d" && python lint_wiki.py && python build_signals_json.py && python random_note.py --no-log)
+            out=$(cd "$d" && python check_setup.py --agent || true)   # exits 1 until backups are set up — expected here
+            echo "$out" | grep -q "AGENTS.md §0 filled in" && ! echo "$out" | grep -q "✗ AGENTS.md §0"
             ! python obsidian-wiki/scripts/install_vault.py --target "$d" --answers a.json   # refuses to overwrite
             python obsidian-wiki/scripts/install_vault.py --target "$d" --update
             test -f "$d/Admin/AGENTS.new.md"
