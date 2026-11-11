@@ -4,3 +4,4 @@ vault/_LINT.md
 vault/Admin/_LINT.md
 signals.json
 vault/signals.json
+dist/build/

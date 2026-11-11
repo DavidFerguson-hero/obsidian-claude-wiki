@@ -8,6 +8,8 @@ This guide takes you from nothing to a vault that Claude maintains for you every
 
 > If anything goes wrong at any point, run the setup checker (step 9). It tells you in plain words what's missing.
 
+> **Prefer to be guided?** The [obsidian-wiki skill](skill/README.md) (beta) does most of this for you in a conversation with Claude, with no terminal.
+
 ---
 
 ## Before you start

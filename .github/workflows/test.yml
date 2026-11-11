@@ -55,6 +55,23 @@ jobs:
           test "$(git log --oneline | wc -l | tr -d ' ')" = "2"
           python backup_vault.py | grep -q "no changes"
 
+      - name: Skill — build and install into empty folders
+        shell: bash
+        run: |
+          python tools/build_skill.py
+          mkdir -p "$RUNNER_TEMP/skill" && cd "$RUNNER_TEMP/skill"
+          python -c "import zipfile; zipfile.ZipFile('$GITHUB_WORKSPACE/dist/obsidian-wiki.zip').extractall('.')"
+          test -f obsidian-wiki/SKILL.md
+          for cat in '"Water"' 'null' '"Energy"'; do
+            d="v_$RANDOM"; mkdir "$d"
+            echo "{\"owner\":\"T\",\"focus\":\"f\",\"extra_category\":$cat,\"features\":{\"weak_signals\":true}}" > a.json
+            python obsidian-wiki/scripts/install_vault.py --target "$d" --answers a.json
+            (cd "$d" && python lint_wiki.py && python build_signals_json.py && python random_note.py --no-log && python check_setup.py --agent | grep -q "✓ AGENTS.md §0 filled in")
+            ! python obsidian-wiki/scripts/install_vault.py --target "$d" --answers a.json   # refuses to overwrite
+            python obsidian-wiki/scripts/install_vault.py --target "$d" --update
+            test -f "$d/Admin/AGENTS.new.md"
+          done
+
       - name: No Windows-unsafe file names in the kit
         shell: bash
         run: |

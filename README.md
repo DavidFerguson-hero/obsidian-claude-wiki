@@ -10,6 +10,8 @@ Based on Andrej Karpathy's "LLM wiki" idea, and hardened over months of daily us
 
 **→ [Install and set up](SETUP.md)** — about 45 minutes, with every step spelled out.
 
+**→ New, in beta: [guided setup with the Claude skill](skill/README.md)** — upload one file, say "set up my wiki", and Claude does the rest. About 15 minutes, no terminal.
+
 ---
 
 ## What it does for you
