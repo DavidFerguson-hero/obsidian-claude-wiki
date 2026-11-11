@@ -50,7 +50,8 @@ def write_new(dst: Path, data, binary=False):
     if binary:
         dst.write_bytes(data)
     else:
-        dst.write_text(data, encoding="utf-8", newline="\n")
+        with open(dst, "w", encoding="utf-8", newline="\n") as f:   # LF on every OS; write_text(newline=) needs 3.10
+            f.write(data)
     created.append(str(dst))
     return True
 
@@ -60,7 +61,8 @@ def overwrite(dst: Path, data, binary=False):
     if binary:
         dst.write_bytes(data)
     else:
-        dst.write_text(data, encoding="utf-8", newline="\n")
+        with open(dst, "w", encoding="utf-8", newline="\n") as f:   # LF on every OS; write_text(newline=) needs 3.10
+            f.write(data)
     created.append(str(dst))
 
 

@@ -13,6 +13,9 @@ import sys
 import zipfile
 from pathlib import Path
 
+if hasattr(sys.stdout, "reconfigure"):   # Windows consoles default to a non-UTF-8 code page
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 ROOT = Path(__file__).resolve().parent.parent
 SKILL = ROOT / "skill" / "obsidian-wiki"
 BUILD = ROOT / "dist" / "build" / "obsidian-wiki"
